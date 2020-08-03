@@ -1,8 +1,2 @@
-- name: create_directory
-  hosts: all
-  tasks:
-
-   - name: Creates directory
-     file:
-       path: ~/demo_directory_created_through_awx
-       state: directory
+- name: Run command and get cplic output
+  command: cplic print -X
