@@ -1,2 +1,6 @@
-- name: Run command and get cplic output
-  command: cplic print -X
+- name: Hello World Sample
+  hosts: all
+  tasks:
+    - name: Hello Message
+      command: cplic print -X
+
