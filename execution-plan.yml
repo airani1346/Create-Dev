@@ -1,6 +1,8 @@
-- name: Hello World Sample
+---
+- name: Hello World!
   hosts: all
+ 
   tasks:
-    - name: Hello Message
-      command: cplic print -X
-
+ 
+  - name: Hello World!
+    shell: echo "Hi! Tower is working."
