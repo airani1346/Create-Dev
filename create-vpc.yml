@@ -57,7 +57,7 @@
       cidr: "{{ subnet_cidr }}"
       map_public: yes
       resource_tags:
-        Name: "{{ subnet_name }}"
+        Name: "subnet-{{ vpc_name }}"
     register: sn1
 
   - name: Create Security Group
@@ -100,4 +100,4 @@
       key_name: "{{ keypairName  }}"
       assign_public_ip: false
       instance_tags: 
-        Name: "Debian10-{{vpc-name}}"
+        Name: "Debian10-{{vpc_name}}"
