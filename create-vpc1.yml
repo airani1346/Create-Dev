@@ -56,3 +56,51 @@
       routes:
         - dest: 0.0.0.0/0
           gateway_id: "{{ igw.gateway_id }}"
+ 
+  - name: Create Security Group
+    ec2_group:
+      name: Web DMZ
+      description: DMZ Security Group
+      vpc_id: "{{ vpc.vpc.id }}"
+      region: "{{ region }}"
+      rules:
+        - proto: tcp
+          ports:
+            - 80
+            cidr_ip: 0.0.0.0/0
+        - proto: tcp
+          ports:
+            - 22
+            cidr_ip: 0.0.0.0/0
+    register: security_group
+    
+  - name: Get AMI Image ID for HoneyPot
+    ec2_ami_info:
+      region: "{{ region }}"
+      filters:
+        name: "Debian 10 (Buster) LAMP Stack - Linux Apache MySQL/MariaDB PHP 7.2-9*"
+    register: amis_hp
+
+  - name:  print Mgmt ami id
+    vars:
+      hp_ami: >
+        {{ amis_hp.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+    debug:
+      msg: "{{hp_ami.image_id}}"
+    register: amiID
+    
+  - name: launche honeyPot
+    ec2:
+      region: "{{ region }}"
+      image: "{{ amiID.msg }}"
+      instance_type: "t2.micro"
+      private_ip: "10.1.1.10"
+      wait: no
+      group_id: "{{ security_group_hp.group_id }}"
+      vpc_subnet_id: "{{ subnet3.subnet.id }}"
+      key_name: "{{ keypairName  }}"
+      assign_public_ip: false
+      instance_tags: 
+        Name: HoneyPotEC2      
+    register: HPInstance 
+    
