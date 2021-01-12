@@ -13,4 +13,4 @@
       state: "{{ state }}"
       region: "{{ region }}"
       tags:
-        Name: prodTransitGateway
+        Name: prodTransitGateway1
