@@ -21,7 +21,7 @@
   - name: Set VPC ID in variable
     set_stats:
       data:
-        vpc_id1: "{{ vpc.vpc.id }}"
+        vpc_id: "{{ vpc.vpc.id }}"
   
   - name: associate subnet to the VPC
     ec2_vpc_subnet:
