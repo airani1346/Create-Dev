@@ -2,7 +2,6 @@
 - hosts: localhost  # put localhost.  We are processing against aws
   connection: local  # put local.  We are processing against aws
   gather_facts: False  # don't gather facts against localhost
-  
   tasks:
   - name: create a new ec2 VPC
     # create a vpc with name, cidr block,dns support, and tenancy
@@ -22,4 +21,3 @@
     set_stats:
       data:
         vpc_id1: "{{ vpc.vpc.id }}"
-
