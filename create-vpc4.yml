@@ -30,3 +30,28 @@
       map_public: yes
       resource_tags:
         Name: "{{ subnet_name }}"
+  - name: create IGW
+    ec2_vpc_igw:
+      vpc_id: "{{ vpc.vpc.id }}"
+     region: "{{ region }}"
+     tags:
+       Name: "igw-{{ vpc_name }}4"
+    register: igw        
+    
+  - name: Lookup route tables
+    ec2_vpc_route_table_info:
+      region: "{{ region }}"
+      filters:
+        vpc-id: "{{ vpc.vpc.id }}"
+    register: vpc_route_tables
+
+  - name: Setup route tables
+    ec2_vpc_route_table:
+      region: "{{ region }}"
+      vpc_id: "{{ vpc.vpc.id }}"
+      lookup: id
+      purge_subnets: false
+      route_table_id: "{{ vpc_route_tables.route_tables[0].id }}"
+      routes:
+        - dest: 0.0.0.0/0
+          gateway_id: "{{ igw.gateway_id }}"
