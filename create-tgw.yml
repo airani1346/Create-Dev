@@ -14,3 +14,9 @@
       region: "{{ region }}"
       tags:
         Name: prodTransitGateway1
+    register: transitGW
+    
+  - name: Set VPC ID in variable
+    set_stats:
+      data:
+        tgw: "{{ transitGW }}"
