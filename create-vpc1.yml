@@ -40,16 +40,20 @@
         vpc-id: "{{ vpc.vpc.id }}"
     register: vpc_route_tables
 
-  - name: Setup route tables
-    ec2_vpc_route_table:
-      region: "{{ region }}"
-      vpc_id: "{{ vpc.vpc.id }}"
-      lookup: id
-      purge_subnets: false
-      route_table_id: "{{ vpc_route_tables.route_tables[0].id }}"
-      routes:
-        - dest: 0.0.0.0/0
-          gateway_id: "{{ tgw.transit_gateway_id }}"
+  - name: display details of variable
+    debug: 
+      var: tgw
+
+#  - name: Setup route tables
+#    ec2_vpc_route_table:
+#      region: "{{ region }}"
+#      vpc_id: "{{ vpc.vpc.id }}"
+#      lookup: id
+#      purge_subnets: false
+#      route_table_id: "{{ vpc_route_tables.route_tables[0].id }}"
+#      routes:
+#        - dest: 0.0.0.0/0
+#          gateway_id: "{{ tgw.transit_gateway_id }}"
 
 
   
