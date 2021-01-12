@@ -1,11 +1,9 @@
-
 ---
 - hosts: localhost  # put localhost.  We are processing against aws
   connection: local  # put local.  We are processing against aws
   gather_facts: False  # don't gather facts against localhost
   tasks:
   - name: create a new ec2 VPC
-    # create a vpc with name, cidr block,dns support, and tenancy
     ec2_vpc_net:
       name: "{{ vpc_name }}2" 
       cidr_block: "{{ vpc_cidr }}"
@@ -22,3 +20,13 @@
     set_stats:
       data:
         vpc_id2: "{{ vpc.vpc.id }}"
+  
+  - name: associate subnet to the VPC
+    ec2_vpc_subnet:
+      region: "{{ region }}"
+      vpc_id: "{{ vpc.vpc.id }}"
+      state: "{{ state }}"
+      cidr: "{{ subnet_cidr }}"
+      map_public: yes
+      resource_tags:
+        Name: "{{ subnet_name }}"
