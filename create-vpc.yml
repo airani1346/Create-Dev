@@ -58,7 +58,7 @@
       map_public: yes
       resource_tags:
         Name: "subnet-{{ vpc_name }}"
-    register: sn1
+    register: subnet
 
   - name: Create Security Group
     ec2_group:
