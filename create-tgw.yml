@@ -4,7 +4,7 @@
   gather_facts: False  # don't gather facts against localhost
   tasks:
   - name: Create a new transit gateway with options
-    aws.ec2_transit_gateway:
+    ec2_transit_gateway:
       auto_associate: no
       auto_propagate: no
       dns_support: True
@@ -14,4 +14,3 @@
       region: "{{ region }}"
       tags:
         Name: prodTransitGateway
-
