@@ -93,7 +93,7 @@
       region: "{{ region }}"
       image: "{{ debian_ami.msg }}"
       instance_type: "t2.micro"
-      private_ip: "{{ net_ip }}"
+      private_ip: "{{ ec2_addr }}"
       wait: no
       group_id: "{{ security_group.group_id }}"
       vpc_subnet_id: "{{ subnet.subnet.id }}"
