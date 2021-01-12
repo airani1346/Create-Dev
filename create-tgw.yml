@@ -16,11 +16,9 @@
         Name: prodTransitGateway1
     register: transitGW
     
-#  - name: Set VPC ID in variable
-#    set_stats:
-#      data:
-#        tgw: "{{ transitGW }}"
+  - name: Set VPC ID in variable
+    set_stats:
+      data:
+        tgw: "{{ transitGW }}"
 
-  - name: display details of variable
-    debug: 
-      msg: "{{ transitGW.transit_gateway.transit_gateway_id }}"
+
