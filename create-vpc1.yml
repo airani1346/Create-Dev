@@ -42,7 +42,7 @@
 
   - name: display details of variable
     debug: 
-      var: tgw
+      msg: "{{ tgw.transit_gateway_id }}"
 
 #  - name: Setup route tables
 #    ec2_vpc_route_table:
