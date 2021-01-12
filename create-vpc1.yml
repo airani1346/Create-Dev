@@ -114,7 +114,7 @@
       msg: "{{debian_ami.image_id}}"
     register: debian_ami
     
-  - name: launche honeyPot
+  - name: launche Debian1
     ec2:
       region: "{{ region }}"
       image: "{{ debian_ami.msg }}"
