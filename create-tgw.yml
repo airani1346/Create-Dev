@@ -23,8 +23,4 @@
 
   - name: display details of variable
     debug: 
-      var: transitGW
-
-  - name: display details of variable
-    debug: 
-      msg: "{{ transitGW[0].transit_gateway_id }}"
+      msg: "{{ transitGW.transit_gateway.transit_gateway_id }}"
