@@ -23,7 +23,17 @@
       data:
         vpc_id1: "{{ vpc.vpc.id }}"
   
-    - name: Lookup route tables
+  - name: associate subnet to the VPC
+    ec2_vpc_subnet:
+      region: "{{ region }}"
+      vpc_id: "{{ vpc_id }}"
+      state: "{{ state }}"
+      cidr: "{{ subnet_cidr }}"
+      map_public: yes
+      resource_tags:
+        Name: "{{ subnet_name }}"
+        
+  - name: Lookup route tables
     ec2_vpc_route_table_info:
       region: "{{ region }}"
       filters:
@@ -41,12 +51,5 @@
         - dest: 0.0.0.0/0
           gateway_id: "{{ tgw.transit_gateway_id }}"
 
-  - name: associate subnet to the VPC
-    ec2_vpc_subnet:
-      region: "{{ region }}"
-      vpc_id: "{{ vpc_id }}"
-      state: "{{ state }}"
-      cidr: "{{ subnet_cidr }}"
-      map_public: yes
-      resource_tags:
-        Name: "{{ subnet_name }}"
+
+  
