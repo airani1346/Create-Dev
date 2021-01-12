@@ -26,7 +26,7 @@
   - name: associate subnet to the VPC
     ec2_vpc_subnet:
       region: "{{ region }}"
-      vpc_id: "{{ vpc_id }}"
+      vpc_id: "{{ vpc.vpc.id }}"
       state: "{{ state }}"
       cidr: "{{ subnet_cidr }}"
       map_public: yes
@@ -37,13 +37,13 @@
     ec2_vpc_route_table_info:
       region: "{{ region }}"
       filters:
-        vpc-id: "{{ vpc_id }}"
+        vpc-id: "{{ vpc.vpc.id }}"
     register: vpc_route_tables
 
   - name: Setup route tables
     ec2_vpc_route_table:
       region: "{{ region }}"
-      vpc_id: "{{ vpc_id }}"
+      vpc_id: "{{ vpc.vpc.id }}"
       lookup: id
       purge_subnets: false
       route_table_id: "{{ vpc_route_tables.route_tables[0].id }}"
